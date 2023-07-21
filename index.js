@@ -12,7 +12,7 @@ app.use(cors());
 
 app.use('/public', express.static(`${process.cwd()}/public`));
 
-app.get('/', function(req, res) {
+app.get('/', (req, res) => {
   res.sendFile(process.cwd() + '/views/index.html');
 });
 
@@ -39,13 +39,13 @@ function getRandomNum() {
   return Math.floor(Math.random() * 1000);
 }
 // Your first API endpoint
-app.get('/api/hello', function(req, res) {
+app.get('/api/hello', (req, res) => {
   res.json({ greeting: 'hello API' });
 });
 
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.post('/api/shorturl', function(req, res) {
+app.post('/api/shorturl', (req, res) => {
   console.log(req.body.url);
   let post_url = req.body.url;
   if (isValidHttpUrl(req.body.url)) {
@@ -65,7 +65,7 @@ app.post('/api/shorturl', function(req, res) {
   }
 });
 
-app.get("/api/shorturl/:id", function(req, res) {
+app.get("/api/shorturl/:id", (req, res) => {
   let shortId = parseInt(req.params.id);
   console.log("id: " + shortId);
   short.findById(shortId).then((urlInfo) => {
@@ -75,6 +75,6 @@ app.get("/api/shorturl/:id", function(req, res) {
   });
 });
 
-app.listen(port, function() {
+app.listen(port, () => {
   console.log(`Listening on port ${port}`);
 });
